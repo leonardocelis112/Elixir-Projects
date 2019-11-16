@@ -43,7 +43,7 @@ defmodule Cards do
 
 
       iex> deck = Cards.create_deck
-      iex> {hand, deck} = Cards.deal(deck, 1)
+      iex> {hand, _deck} = Cards.deal(deck, 1)
       iex> hand
       ["Ace of Spades"]
   """
@@ -58,14 +58,14 @@ defmodule Cards do
 
   def load(filename) do
     case File.read(filename) do
-      {:ok, binary} -> :erlang.binary_to_term binary
+      {:ok, binary} -> :erlang.binary_to_term(binary)
       {:error, _reason} -> "This filename does not exist"
     end
   end
 
   def create_hand(hand_size) do
-    Cards.create_deck
-    |> Cards.shuffle
+    Cards.create_deck()
+    |> Cards.shuffle()
     |> Cards.deal(hand_size)
   end
 end
